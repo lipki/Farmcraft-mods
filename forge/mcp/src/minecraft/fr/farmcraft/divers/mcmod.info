@@ -1,0 +1,15 @@
+[{
+  "modid": "farmcraftdivers",
+  "name": "FarmcraftDivers",
+  "description": "Des blocs utils.",
+  "version": "1.0.65",
+  "credits": "Code & Textures by lipki.",
+  "logoFile": "fr/farmcraft/divers/assets/logo.png",
+  "mcversion": "1.4.7",
+  "url": "http://farmcraft.fr",
+  "updateUrl": "-",
+  "authors": [ "Lipki" ],
+  "parent":"",
+  "screenshots": [],
+  "dependencies": [ "mod_MinecraftForge" ]
+}]

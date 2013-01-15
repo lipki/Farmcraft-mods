@@ -1,0 +1,15 @@
+[{
+  "modid": "farmcraftenhancement",
+  "name": "Farmcraft Enhancement",
+  "description": "décorations",
+  "version": "1.1.8",
+  "credits": "Code & Textures by lipki.",
+  "logoFile": "fr/farmcraft/enhancement/assets/logo.png",
+  "mcversion": "1.4.7",
+  "url": "http://farmcraft.fr",
+  "updateUrl": "-",
+  "authors": [ "Lipki" ],
+  "parent":"",
+  "screenshots": [],
+  "dependencies": [ "mod_MinecraftForge" ]
+}]
