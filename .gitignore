@@ -1,35 +1,38 @@
-*.py[cod]
 
-# C extensions
-*.so
+forge/client
+forge/common
+forge/fml
+forge/patches
+forge/*.sh
 
-# Packages
-*.egg
-*.egg-info
-dist
-build
-eggs
-parts
-bin
-var
-sdist
-develop-eggs
-.installed.cfg
-lib
-lib64
+forge/mcp/bin
+forge/mcp/conf
+forge/mcp/docs
+forge/mcp/eclipse
+forge/mcp/jars
+forge/mcp/lib
+forge/mcp/logs
+forge/mcp/reobf
+forge/mcp/runtime
+forge/mcp/temp
+forge/mcp/CHANGELOG
+forge/mcp/*.sh
 
-# Installer logs
-pip-log.txt
+forge/mcp/src/minecraft/cpw
+forge/mcp/src/minecraft/ibxm
+forge/mcp/src/minecraft/net
+forge/mcp/src/minecraft/paulscode
+forge/mcp/src/minecraft/*.sh
 
-# Unit test / coverage reports
-.coverage
-.tox
-nosetests.xml
+*.py
+*.pyc
+*.properties
+*.cmd
+*.bat
+*.txt
+*.cfg
 
-# Translations
-*.mo
-
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
+forge_logo.png
+mcp.png
+mcpmod.info
+Start.java
