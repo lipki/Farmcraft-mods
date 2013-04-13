@@ -2,6 +2,7 @@ package fr.farmcraft.enhancement.common.blocks;
 
 import java.util.Random;
 
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -19,9 +20,10 @@ public class BlockCauldron extends net.minecraft.block.BlockCauldron {
 	public BlockCauldron(int id) {
 		super(id);
         setHardness(2);
-		setRequiresSelfNotify();
 		setCreativeTab(CreativeTabs.tabBrewing);
-		setBlockName("cauldron");
+		
+    	setUnlocalizedName("cauldron");
+		LanguageRegistry.addName(this, "Cauldron");
 	}
 	
     public int getRenderType() {

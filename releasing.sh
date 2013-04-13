@@ -29,24 +29,27 @@ do
 		path_mod=$(echo $file | sed -e s#/[^/]*java#/#g)
 		name_mod=$(echo $file | sed -e s#.*/##g)
 		name_mod=$(echo $name_mod | sed -e s#.java##g)
-		path_package=$( echo $path_mod | sed -e s#./src/minecraft/##g)
+		path_package=$(echo $path_mod | sed -e s#./src/minecraft/##g)
+		id_mod=$(echo $path_mod | sed s#/\$##g | sed s#./.*/##g)
 
 		if [ -f $path_mod"mcmod.info" ]; then
 
-			for img in `find $path_mod -name "*.png"`;
-			do
-				img2=$(echo $img | sed -e s#src/minecraft#reobf/minecraft#g)
-				path=$(echo $img2 | sed -e s#/[^/]*png#/#g)
-				mkdir -pv $path
-				cp -f $img $img2
-			done;
-
+#			for img in `find $path_mod -name "*.png"`;
+#			do
+#				img2=$(echo $img | sed -e s#src/minecraft#reobf/minecraft#g)
+#				path=$(echo $img2 | sed -e s#/[^/]*png#/#g)
+#				mkdir -pv $path
+#				cp -f $img $img2
+#			done;
+#           
+			cp -R ./src/minecraft/mods ./reobf/minecraft/
+           
 			cd ./reobf/minecraft/
 
-			 version_old=$( grep "\"version" "./../."$path_mod"mcmod.info" | sed s#.*\ \"## | sed s#\",## )
-			revision_old=$( grep "\"version" "./../."$path_mod"mcmod.info" | sed s#.*\"[0-9].[0-9].## | sed s#\",## )
+			version_old=$(grep "\"version" "./../."$path_mod"mcmod.info" | sed s#.*\ \"## | sed s#\",## )
+			revision_old=$(grep "\"version" "./../."$path_mod"mcmod.info" | sed s#.*\"[0-9].[0-9].## | sed s#\",## )
 			revision_old=$(string_to_int $revision_old)
-			    revision=$((revision_old+1))
+			revision=$((revision_old+1))
 
 			rep=$PWD
 			cd "./../."$path_mod
@@ -54,18 +57,21 @@ do
 			sed -r "s%(version\ =\ \"[0-9]*\.[0-9]*\.).*\"%\1$revision\"%" $name_mod".java" -i
 			cd $rep
 
-			  version=$( grep "\"version" "./../."$path_mod"mcmod.info" | sed s#.*\ \"## | sed s#\",## )
+			version=$( grep "\"version"   "./../."$path_mod"mcmod.info" | sed s#.*\ \"## | sed s#\",## )
 			mcversion=$( grep "\"mcversion" "./../."$path_mod"mcmod.info" | sed s#.*\ \"## | sed s#\",## )
 
 			name_jar_old=$name_mod"-universal-"$version_old"-MC"$mcversion".jar"
 			name_jar=$name_mod"-universal-"$version"-MC"$mcversion".jar"
+			name_jar_short=$name_mod"-universal.jar"
 
 			rm $name_jar_old
 			zip -r $name_jar $path_package
 			zip -r $name_jar "./../."$path_mod
 			zip -j $name_jar "./../."$path_mod"mcmod.info"
+			zip -r $name_jar ./mods/$id_mod
 
 			cp $name_jar ~/.minecraft/mods
+			cp $name_jar $name_jar_short
 
 			if [ ! -d "./../../../../mods" ]; then
 				mkdir ./../../../../mods

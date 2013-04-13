@@ -4,36 +4,49 @@ import java.util.Random;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import fr.farmcraft.trampoline.FarmcraftTrampoline;
 import fr.farmcraft.trampoline.client.ClientProxy;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
-public class BlockTrampoline extends BlockContainer {
+public class BlockTrampoline extends Block implements ITileEntityProvider {
 
 	private Entity tentity;
 	private float tblock;
-
+	
+	@SideOnly(Side.CLIENT)
+	private Icon icon;
+	
 	public BlockTrampoline(int id) {
-        super(id, 0, Material.cake);
+        super(id, Material.cake);
         setHardness(.5F);
 		setStepSound(Block.soundSnowFootstep);
-        setBlockName("trampoline");
 		setCreativeTab(CreativeTabs.tabBlock);
-        LanguageRegistry.addName(this, "Trampoline");
+		
+		setUnlocalizedName("trampoline");
+		LanguageRegistry.addName(this, "Trampoline");
         
         slipperiness = 1.05F;
     }
-	
-	@Override
-	public String getTextureFile () { return ClientProxy.BLOCK_PNG; }
     
+	@SideOnly(Side.CLIENT)
+	@Override
+	public Icon getBlockTextureFromSideAndMetadata(int i, int j) {
+		return icon;
+	}
+	
     public void onFallenUpon(World world, int x, int y, int z, Entity entity, float par6) {
     	if( tentity == null ) {
     		tentity = entity;
@@ -60,6 +73,12 @@ public class BlockTrampoline extends BlockContainer {
 	@Override
 	public TileEntity createNewTileEntity(World var1) {
 		return new TileEntityTrampoline();
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IconRegister iconRegister) {
+		icon = iconRegister.registerIcon("trampoline:trampoline");
 	}
 
 }

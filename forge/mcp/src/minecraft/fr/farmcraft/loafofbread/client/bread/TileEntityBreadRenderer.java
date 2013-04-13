@@ -5,8 +5,10 @@ import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
-import fr.farmcraft.loafofbread.common.bread.TileEntityBread;
+import fr.farmcraft.loafofbread.FarmcraftLoafOfBread;
+import fr.farmcraft.loafofbread.client.ClientProxy;
 import fr.farmcraft.loafofbread.common.CommonProxy;
+import fr.farmcraft.loafofbread.common.TileEntityBread;
 
 public class TileEntityBreadRenderer extends TileEntitySpecialRenderer {
 
@@ -22,7 +24,7 @@ public class TileEntityBreadRenderer extends TileEntitySpecialRenderer {
         GL11.glPushMatrix();
         GL11.glTranslatef((float)x + 0.5F, (float)y + 0.5F, (float)z + 0.5F);
 
-	    this.bindTextureByName( CommonProxy.BREAD_PNG );
+	    this.bindTextureByName( ClientProxy.BREAD_PNG );
 	    this.model.render( meta, random1, random2 );
     	
         GL11.glPopMatrix();

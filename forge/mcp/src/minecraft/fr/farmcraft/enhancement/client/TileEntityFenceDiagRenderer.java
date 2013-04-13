@@ -18,10 +18,8 @@ public class TileEntityFenceDiagRenderer extends TileEntitySpecialRenderer {
     	
         GL11.glPushMatrix();
         GL11.glTranslatef((float)x + 0.5F, (float)y + 0.75F, (float)z + 0.5F);
-        this.bindTextureByName(fence.png);
-        GL11.glPushMatrix();
+        this.bindTextureByName(ClientProxy.FENCE_PNG + fence.getUnlocalizedName() + ".png");
         this.model.render((BlockFenceDiag) tileEntity.getBlockType(), tileEntity.getWorldObj(), tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
-        GL11.glPopMatrix();
         GL11.glPopMatrix();
     }
 }

@@ -1,5 +1,6 @@
 package fr.farmcraft.trampoline;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -21,33 +22,43 @@ import fr.farmcraft.trampoline.common.BlockTrampoline;
 import fr.farmcraft.trampoline.common.CommonProxy;
 import fr.farmcraft.trampoline.common.TileEntityTrampoline;
 
-@Mod(modid = "farmcrafttrampoline", name = "Farmcraft Trampoline", version = "1.0.27")
-@NetworkMod(clientSideRequired = true, serverSideRequired = true)
+@Mod(modid = "farmcrafttrampoline", name = "Farmcraft Trampoline", version = "1.0.55")
+@NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class FarmcraftTrampoline {
-
-	public static BlockTrampoline blockTrampoline = new BlockTrampoline(153);
-	
-	@Init
-	public void load(FMLInitializationEvent event) {
-		
-		ClientRegistry.registerTileEntity(TileEntityTrampoline.class, "TileEntityTrampoline", new TileEntityTrampolineRenderer());
-		
-		GameRegistry.registerBlock( blockTrampoline, "blockTrampoline" );
-		
-		//recette
-		
-		GameRegistry.addRecipe(new ItemStack(blockTrampoline, 1),
-			new Object[] { "XXX", "XXX", "XXX", 'X', Item.slimeBall, });
-		GameRegistry.addShapelessRecipe(new ItemStack(Item.slimeBall, 9),
-			new Object[] { blockTrampoline });
-		
-		proxy.registerRenderers();
-	}
 
 	@Instance("FarmcraftTrampoline")
 	public static FarmcraftTrampoline instance;
 	
-	@SidedProxy(clientSide="fr.farmcraft.trampoline.client.ClientProxy", serverSide="fr.farmcraft.trampoline.common.CommonProxy")
+	@SidedProxy(clientSide="fr.farmcraft.trampoline.client.ClientProxy", serverSide="fr.farmcraft.trampoline.common.CommonProxy", bukkitSide="fr.farmcraft.trampoline.common.CommonProxy")
 	public static CommonProxy proxy;
+
+	public static BlockTrampoline blockTrampoline = new BlockTrampoline(2248);
+
+	@PreInit
+	public void initConfig(FMLPreInitializationEvent event) {
+		proxy.registerRender();
+	}
+	
+	@Init
+	public void load(FMLInitializationEvent event) {
+
+		registerBlock();
+		registerCraft();
+		
+		ClientRegistry.registerTileEntity(TileEntityTrampoline.class, "TileEntityTrampoline", new TileEntityTrampolineRenderer());
+		
+	}
+	
+	private void registerBlock() {
+		GameRegistry.registerBlock( blockTrampoline, "blockTrampoline" );
+	}
+	
+	private void registerCraft() {
+
+		GameRegistry.addRecipe(new ItemStack(blockTrampoline, 1),
+			new Object[] { "XXX", "XXX", "XXX", 'X', Item.slimeBall, });
+		GameRegistry.addShapelessRecipe(new ItemStack(Item.slimeBall, 9),
+			new Object[] { blockTrampoline });
+	}
 	
 }

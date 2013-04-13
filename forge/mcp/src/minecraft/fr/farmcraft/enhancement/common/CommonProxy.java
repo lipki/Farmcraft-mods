@@ -1,11 +1,13 @@
 package fr.farmcraft.enhancement.common;
 
-public class CommonProxy {
-	public static String BLOCK_PNG = "/fr/farmcraft/enhancement/assets/blocks.png";
-	public static String IRONFENCE_PNG = "/fr/farmcraft/enhancement/assets/ironfence.png";
-	public static String NETHERFENCE_PNG = "/fr/farmcraft/enhancement/assets/netherfence.png";
-	public static String WOODFENCE_PNG = "/fr/farmcraft/enhancement/assets/woodfence.png";
-	public static String APPLE_PNG = "/fr/farmcraft/enhancement/assets/apple.png";
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import fr.farmcraft.enhancement.client.RenderCauldron;
 
-	public void registerRenderers() {}
+public class CommonProxy {
+	public static String APPLE_PNG = "/mods/enhancement/textures/entity/apple.png";
+	public static String FENCE_PNG = "/mods/enhancement/textures/entity/";
+
+	public static final int RENDERCAULDRON = RenderingRegistry.getNextAvailableRenderId();
+	
+	public void registerRender() {}
 }

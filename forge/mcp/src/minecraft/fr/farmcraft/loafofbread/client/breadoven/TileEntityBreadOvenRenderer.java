@@ -1,48 +1,40 @@
 package fr.farmcraft.loafofbread.client.breadoven;
 
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-
 import org.lwjgl.opengl.GL11;
 
-import fr.farmcraft.loafofbread.common.CommonProxy;
-import fr.farmcraft.loafofbread.common.breadoven.TileEntityBreadOven;
+import fr.farmcraft.loafofbread.client.ClientProxy;
+import fr.farmcraft.loafofbread.common.TileEntityBreadOven;
+
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 public class TileEntityBreadOvenRenderer extends TileEntitySpecialRenderer {
 
-    private ModelMillstone model = new ModelMillstone();
-    private ModelBreadOven modelO = new ModelBreadOven();
+    private ModelBreadOven pascuit = new ModelBreadOven();
+    private ModelBreadOvenCuit cuit = new ModelBreadOvenCuit();
 
     public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float par8) {
 
     	int meta = tileEntity.getBlockMetadata();
-    	int burnTime = ((TileEntityBreadOven) tileEntity).burnTime;
-    	ItemStack truc = ((TileEntityBreadOven) tileEntity).inv[1];
-    	int itemID = Block.cobblestone.blockID;
-		if( truc != null )
-    		itemID = ((TileEntityBreadOven) tileEntity).inv[1].getItem().itemID;
-		
-    	//System.err.println( "---"+meta );
-    	
-    	int stackSize;
-    	if( ((TileEntityBreadOven) tileEntity).inv[2] != null )
-    		 stackSize = ((TileEntityBreadOven) tileEntity).inv[2].stackSize;
-    	else stackSize = 0;
-    	
-        GL11.glPushMatrix();
-        GL11.glTranslatef((float)x + 0.5F, (float)y + 0.75F, (float)z + 0.5F);
 
-    	if( burnTime > 0 || stackSize > 0 ) {
-	        this.bindTextureByName(CommonProxy.MILLSTONE_PNG);
-	        this.model.render(burnTime, stackSize, itemID);
-    	}
     	if( meta > 0 ) {
-	        this.bindTextureByName(CommonProxy.BREADOVEN_PNG);
-	        this.modelO.render(meta);
+            GL11.glPushMatrix();
+            GL11.glTranslatef((float)x+.5F, (float)y+.0625F, (float)z+.5F);
+	        
+	    	GL11.glTranslatef(0, (float)(meta)/30, 0);
+	    	GL11.glScaled((float)(meta)/15, (float)(meta)/15, (float)(meta)/15);
+	    	
+	    	if( meta > 0 && meta < 15 ) {
+		        bindTextureByName(ClientProxy.BREADOVEN_PNG);
+	    		pascuit.render();
+	    	}
+	    	if( meta == 15 ) {
+		        bindTextureByName(ClientProxy.BREAD_PNG);
+	    		cuit.render();
+	    	}
+	    	
+	        GL11.glPopMatrix();
     	}
-    	
-        GL11.glPopMatrix();
     }
 }
